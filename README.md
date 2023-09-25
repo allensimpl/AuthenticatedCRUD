@@ -1,1 +1,1 @@
-# ai_shopping_server
+# Secured CRUD API

@@ -44,7 +44,7 @@ public class StoreServiceImpl implements IStoreService {
         for(StoreRequestDto requestDto:storeDtos){
             stores.add(Mapper.storeDtoToStoreConverter(requestDto));
         }
-        return stores;
+        return Mapper.storeListToListResponse(stores);
     }
 
 }
