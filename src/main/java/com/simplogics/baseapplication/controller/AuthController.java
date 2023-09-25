@@ -15,7 +15,6 @@ import com.simplogics.baseapplication.service.UserService;
 @Controller
 @RequestMapping("${spring.data.rest.base-path}")
 public class AuthController {
-
 	@Autowired
 	private UserService userService;
 	
@@ -24,5 +23,4 @@ public class AuthController {
 	public Object getIndex(@RequestBody @Valid LoginDto loginDto) {
 		return userService.login(loginDto);
 	}
-
 }

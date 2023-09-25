@@ -1,22 +1,14 @@
-package com.simplogics.baseapplication.entity;
+package com.simplogics.baseapplication.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "store")
-public class Store {
-    @Id
-    @GeneratedValue
+public class StoreResponseDto {
     private int id;
-    @Column(name = "str_name")
     String storeName;
-    @Column(name = "str_code")
     int storeCode;
 
-    public Store() {
+    public StoreResponseDto() {
     }
 
-    public Store(int id, String storeName, int storeCode) {
+    public StoreResponseDto(int id, String storeName, int storeCode) {
         this.id = id;
         this.storeName = storeName;
         this.storeCode = storeCode;

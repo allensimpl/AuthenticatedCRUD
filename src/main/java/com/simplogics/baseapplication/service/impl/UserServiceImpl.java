@@ -16,7 +16,7 @@ import com.simplogics.baseapplication.service.UserService;
 
 @Service(value = "userService")
 //TODO Auth not required for now
-public class userServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
