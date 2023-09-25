@@ -46,5 +46,4 @@ public class StoreServiceImpl implements IStoreService {
         }
         return Mapper.storeListToListResponse(stores);
     }
-
 }

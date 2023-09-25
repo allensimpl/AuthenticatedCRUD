@@ -8,7 +8,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.simplogics</groupId>
-	<artifactId>aishopping</artifactId>
+	<artifactId>crudSecurity</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>java_framework</name>
 	<description>Demo project for Spring Boot</description>

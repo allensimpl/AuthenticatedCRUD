@@ -19,4 +19,6 @@ public interface IEventService {
     ResultDto updateEvent(int id, EventRequestDto eventRequest);
 
     ResultDto deleteEvent(int id);
+
+
 }
