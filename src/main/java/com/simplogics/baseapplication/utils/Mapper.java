@@ -1,16 +1,14 @@
 package com.simplogics.baseapplication.utils;
 
-import com.simplogics.baseapplication.dto.EventRequestDto;
-import com.simplogics.baseapplication.dto.EventResponseDTO;
-import com.simplogics.baseapplication.dto.StoreRequestDto;
-import com.simplogics.baseapplication.dto.StoreResponseDto;
+import com.simplogics.baseapplication.dto.*;
 import com.simplogics.baseapplication.entity.Event;
+import com.simplogics.baseapplication.entity.EventStoreMap;
+import com.simplogics.baseapplication.entity.SalesPlan;
 import com.simplogics.baseapplication.entity.Store;
 import org.springframework.security.web.server.header.CrossOriginEmbedderPolicyServerHttpHeadersWriter;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Mapper {
     public static EventResponseDTO eventToEventResponseMapper(Event event){
@@ -21,6 +19,18 @@ public class Mapper {
         response.setStartDate(event.getStartDate());
         response.setEndDate(event.getEndDate());
         return response;
+    }
+    public static List<BaseDto> EventListToEventResponseDtoList(List<Event> events){
+        List<BaseDto> responses = new ArrayList<>();
+        for(Event event:events){
+            EventResponseDTO eventResponseDTO = EventResponseDTO.builder()
+                    .id(event.getId())
+                    .eventCode(event.getEventCode())
+                    .eventName(event.getEventName())
+                    .build();
+            responses.add(eventResponseDTO);
+        }
+        return responses;
     }
     public static Event eventRequestToEventMapper(EventRequestDto request){
         Event event = new Event();
@@ -45,21 +55,33 @@ public class Mapper {
 
     public static StoreResponseDto storeToStoreResponseDto(Store store){
         StoreResponseDto responseDto = new StoreResponseDto();
-        responseDto.setId(responseDto.getId());
-        responseDto.setStoreCode(responseDto.getStoreCode());
-        responseDto.setStoreName(responseDto.getStoreName());
+        responseDto.setId(store.getId());
+        responseDto.setStoreCode(store.getStoreCode());
+        responseDto.setStoreName(store.getStoreName());
         return responseDto;
     }
 
+    public static List<Store> storeDtoListToStoreListConverter(List<StoreResponseDto> stores){
+        List<Store> storesList = new ArrayList<>();
+        for(StoreResponseDto s: stores){
+            Store tempStore = new Store();
+            tempStore.setId(s.getId());
+            tempStore.setStoreName(s.getStoreName());
+            tempStore.setStoreCode(s.getStoreCode());
+            storesList.add(tempStore);
+        }
+        return storesList;
+    }
     public static List<StoreResponseDto> storeListToListResponse(List<Store> stores){
-        List<Store> storesResponse = new ArrayList<>();
+        List<StoreResponseDto> storesResponse = new ArrayList<>();
         for(Store store: stores){
             StoreResponseDto responseDto = new StoreResponseDto();
             responseDto.setId(store.getId());
             responseDto.setStoreCode(store.getStoreCode());
             responseDto.setStoreName(store.getStoreName());
+            storesResponse.add(responseDto);
         }
-        return Mapper.storeListToListResponse(storesResponse);
+        return storesResponse;
     }
     public static Store storeDtoToStoreConverter(StoreRequestDto request){
         Store store = new Store();
@@ -68,5 +90,21 @@ public class Mapper {
         return store;
     }
 
+    public static List<Integer> getStoreCodes(List<Store> stores){
+        List<Integer> allStoreCodes = new ArrayList<>();
+        for(Store s:stores){
+            allStoreCodes.add(s.getStoreCode());
+        }
+        List<Integer>test = allStoreCodes;
+        return allStoreCodes;
+    }
 
+    public static SalesPlanResponseDto saleToSalesResponseDtoConv(SalesPlan sale){
+        return SalesPlanResponseDto.builder()
+                .id(sale.getId())
+                .esId(sale.getEsId())
+                .date(sale.getDate())
+                .quantity(sale.getQuantity())
+                .build();
+    }
 }

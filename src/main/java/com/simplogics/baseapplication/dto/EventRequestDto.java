@@ -1,10 +1,11 @@
 package com.simplogics.baseapplication.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.ser.Serializers;
 
 import java.util.Date;
 
-public class EventRequestDto {
+public class EventRequestDto extends BaseDto {
     private String eventName;
     private int eventCode;
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")

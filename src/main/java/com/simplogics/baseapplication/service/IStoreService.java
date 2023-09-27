@@ -13,7 +13,11 @@ public interface IStoreService{
 
     ResultDto addStore(StoreRequestDto storeDTO);
 
-    List<StoreResponseDto> addStores(List<StoreRequestDto> storeDtos);
+    public ResultDto addStores(List<StoreRequestDto> storeDtos);
+
+    ResultDto updateStore(int id, StoreRequestDto storeDto);
+
+    ResultDto delete(int id);
 
 //    StoreResponseDto addStore(StoreRequestDto);
 }

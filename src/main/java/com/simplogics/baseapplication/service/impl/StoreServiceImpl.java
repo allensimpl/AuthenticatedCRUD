@@ -39,11 +39,28 @@ public class StoreServiceImpl implements IStoreService {
     }
 
     @Override
-    public List<StoreResponseDto> addStores(List<StoreRequestDto> storeDtos) {
+    public ResultDto addStores(List<StoreRequestDto> storeDtos) {
         List<Store> stores = new ArrayList<>();
         for(StoreRequestDto requestDto:storeDtos){
             stores.add(Mapper.storeDtoToStoreConverter(requestDto));
         }
-        return Mapper.storeListToListResponse(stores);
+        List<Store> storesResponse = repository.saveAll(stores);
+        List<StoreResponseDto> responseDtoList =  Mapper.storeListToListResponse(storesResponse);
+        return new ResultDto(true,"POST Successfull",200,responseDtoList);
+    }
+
+    @Override
+    public ResultDto updateStore(int id, StoreRequestDto storeDto){
+        Store store = repository.findById(id).orElse(null);
+        store.setStoreName(storeDto.getStoreName());
+        store.setStoreCode(storeDto.getStoreCode());
+        repository.save(store);
+        return new ResultDto(true,"POST Successfull for store"+id,200,Mapper.storeToStoreResponseDto(store));
+    }
+
+    @Override
+    public ResultDto delete(int id){
+        repository.deleteById(id);
+        return new ResultDto(true,"Deleted Successfull",200,"Deleted "+id);
     }
 }

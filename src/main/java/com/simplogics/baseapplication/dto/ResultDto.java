@@ -19,9 +19,9 @@ public class ResultDto extends BaseDto{
 
 	private boolean status;
 
-	private Object data;
-
 	private int messageCode = 1;
+
+	private Object data;
 
 	public ResultDto(boolean status, String message, Object data) {
 		this.status = status;
@@ -32,7 +32,7 @@ public class ResultDto extends BaseDto{
 	public ResultDto(boolean status, String message, int messageCode, Object data) {
 		this.status = status;
 		this.message = message;
-		this.data = data;
 		this.messageCode = messageCode;
+		this.data = data;
 	}
 }

@@ -18,6 +18,7 @@ public class StoreController {
     @GetMapping
     public ResultDto getStores(){
         List<StoreResponseDto> stores =  service.getStores();
+        ResultDto result = new ResultDto(true,"GET Successfull",200,stores);
         return new ResultDto(true,"GET Successfull",200,stores);
     }
     @GetMapping("/:{id}")
@@ -31,7 +32,17 @@ public class StoreController {
         return service.addStore(storeDTO);
     }
     @PostMapping("/bulk")
-    public List<StoreResponseDto> addStores(@RequestBody List<StoreRequestDto> storeDtos){
+    public ResultDto addStores(@RequestBody List<StoreRequestDto> storeDtos){
         return service.addStores(storeDtos);
+    }
+
+    @PutMapping("/:{id}")
+    public ResultDto updateStore(@PathVariable("id") int id, @RequestBody StoreRequestDto storeDto){
+        return service.updateStore(id,storeDto);
+    }
+
+    @DeleteMapping("/:{id}")
+    public ResultDto deleteStore(@PathVariable("id") int id){
+        return service.delete(id);
     }
 }

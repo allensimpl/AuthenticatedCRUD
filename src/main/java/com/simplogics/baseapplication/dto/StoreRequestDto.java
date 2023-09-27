@@ -2,7 +2,7 @@ package com.simplogics.baseapplication.dto;
 
 import javax.persistence.Column;
 
-public class StoreRequestDto {
+public class StoreRequestDto extends BaseDto{
     String storeName;
     int storeCode;
 
