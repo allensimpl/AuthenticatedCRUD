@@ -5,6 +5,7 @@ import com.simplogics.baseapplication.entity.Event;
 import com.simplogics.baseapplication.entity.EventStoreMap;
 import com.simplogics.baseapplication.entity.SalesPlan;
 import com.simplogics.baseapplication.entity.Store;
+import com.simplogics.baseapplication.view.SalesReportView;
 import org.springframework.security.web.server.header.CrossOriginEmbedderPolicyServerHttpHeadersWriter;
 
 import java.util.ArrayList;
@@ -106,5 +107,13 @@ public class Mapper {
                 .date(sale.getDate())
                 .quantity(sale.getQuantity())
                 .build();
+    }
+
+    public static SalesReportDto reportViewToReportDto(SalesReportView view){
+        return SalesReportDto.builder()
+                .eventName(view.getEventName())
+                .storeName(view.getStoreName())
+                .date(view.getDate())
+                .quantity(view.getQuantity()).build();
     }
 }

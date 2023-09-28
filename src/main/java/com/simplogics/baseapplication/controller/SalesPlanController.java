@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @RestController
 @RequestMapping("${spring.data.rest.base-path}"+"/secure/salesPlan")
 public class SalesPlanController {
@@ -23,5 +26,9 @@ public class SalesPlanController {
     @APIResult(message = "#post.success",error_message = "#post.failed")
     public Object addSalesPlan(@RequestBody SalesPlanRequestDto salesPlanRequestDto)throws CustException{
         return service.addSalesPlan(salesPlanRequestDto);
+    }
+    @RequestMapping(method = RequestMethod.GET)
+    public Object generateReport(HttpServletResponse response) throws IOException {
+        return service.generateReport(response);
     }
 }

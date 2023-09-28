@@ -49,7 +49,4 @@ public class User extends BaseEntity {
 
 	@Enumerated(value = EnumType.STRING)
 	private UserRole role;
-
-
-
 }

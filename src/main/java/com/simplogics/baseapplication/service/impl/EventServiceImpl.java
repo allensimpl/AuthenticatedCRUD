@@ -25,6 +25,7 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements IEventService {
@@ -49,8 +50,8 @@ public class EventServiceImpl implements IEventService {
     @Override
     public List<BaseDto> addEvents(List<EventRequestDto> eventRequests){
         List<Event> events = Mapper.eventRequestDtoListToEventList(eventRequests);
-        List<Event> responses = repository.saveAll(events);
-        return Mapper.EventListToEventResponseDtoList(responses);
+        events = repository.saveAll(events);
+        return Mapper.EventListToEventResponseDtoList(events);
 //        return new ResultDto(true,"POST Bulk Successful",200,events);
     }
 
@@ -106,10 +107,8 @@ public class EventServiceImpl implements IEventService {
     }
     @Override
     public BaseDto publishEvent(int id) throws CustException {
-        Event event = repository.findById(id).orElse(null);
-        if(event== null){
-            throw new CustException("#event.not.found",500);
-        }
+        Event event = repository.findById(id)
+                .orElseThrow(()->new CustException("#event.not.found",500));
 
         int eventCode = event.getEventCode();
         if(eventStoreMapRepository.eventCount(eventCode)>0){

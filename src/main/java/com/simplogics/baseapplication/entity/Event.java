@@ -16,8 +16,10 @@ public class Event {
     @Id
     @GeneratedValue
     private int id;
+
     @Column(name = "ev_name")
     private String eventName;
+
     @Column(name = "ev_code")
     private int eventCode;
     @Column(name = "start_date")

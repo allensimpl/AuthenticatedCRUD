@@ -23,3 +23,5 @@ public class SalesPlan {
     @Column(name = "quantity")
     private int quantity;
 }
+
+//TODO Make unique constraint for Date and ESID
