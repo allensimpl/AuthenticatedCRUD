@@ -20,8 +20,7 @@ public class ExcelGenerator {
 //    private static List<StudentExcelDto> resultList;
 //    private static XSSFWorkbook workbook;
 //    private static XSSFSheet sheet;
-
-    //    public ExcelGenerator(List<StudentExcelDto> resultList){
+//    public ExcelGenerator(List<StudentExcelDto> resultList){
 //        this.resultList = resultList;
 //        workbook = new XSSFWorkbook();
 //    }

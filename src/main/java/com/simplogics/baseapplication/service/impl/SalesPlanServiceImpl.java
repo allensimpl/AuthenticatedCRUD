@@ -65,6 +65,10 @@ public class SalesPlanServiceImpl implements ISalesPlanService {
 //    public List<BaseDto> generateReport() {
 //        return null;
 //    }
+    @Override
+    public List<BaseDto> getAllSalesPlan(){
+        return Mapper.salesListToSalesResponseDto(repository.findAll());
+    }
 
     @Override
     public List<BaseDto> generateReport(HttpServletResponse response) throws IOException {

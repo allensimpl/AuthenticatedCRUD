@@ -2,14 +2,16 @@ package com.simplogics.baseapplication.dto;
 
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StoreResponseDto {
-    private int id;
-    String storeName;
-    int storeCode;
-    int deliveryType;
+public class DeliveryPlanResponseDto {
+    int id;
+    long esmID;
+    Date date;
+    int quantity;
 }

@@ -18,4 +18,6 @@ public interface ISalesPlanService {
 
     public List<BaseDto> generateReport(HttpServletResponse response) throws IOException;
 //    List<BaseDto> generateReport(HttpServletResponse response) throws IOException
+
+    List<BaseDto> getAllSalesPlan();
 }

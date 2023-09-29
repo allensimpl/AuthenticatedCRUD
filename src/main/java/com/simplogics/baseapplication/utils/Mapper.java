@@ -55,39 +55,43 @@ public class Mapper {
     }
 
     public static StoreResponseDto storeToStoreResponseDto(Store store){
-        StoreResponseDto responseDto = new StoreResponseDto();
-        responseDto.setId(store.getId());
-        responseDto.setStoreCode(store.getStoreCode());
-        responseDto.setStoreName(store.getStoreName());
-        return responseDto;
+        return StoreResponseDto.builder()
+                .id(store.getId())
+                .storeCode(store.getStoreCode())
+                .storeName(store.getStoreName())
+                .deliveryType(store.getDeliveryType())
+                .build();
     }
 
     public static List<Store> storeDtoListToStoreListConverter(List<StoreResponseDto> stores){
         List<Store> storesList = new ArrayList<>();
-        for(StoreResponseDto s: stores){
-            Store tempStore = new Store();
-            tempStore.setId(s.getId());
-            tempStore.setStoreName(s.getStoreName());
-            tempStore.setStoreCode(s.getStoreCode());
-            storesList.add(tempStore);
+        for(StoreResponseDto s: stores) {
+            storesList.add(storeResponseDtoToStoreConverter(s));
         }
         return storesList;
     }
     public static List<StoreResponseDto> storeListToListResponse(List<Store> stores){
         List<StoreResponseDto> storesResponse = new ArrayList<>();
         for(Store store: stores){
-            StoreResponseDto responseDto = new StoreResponseDto();
-            responseDto.setId(store.getId());
-            responseDto.setStoreCode(store.getStoreCode());
-            responseDto.setStoreName(store.getStoreName());
-            storesResponse.add(responseDto);
+            storesResponse.add(storeToStoreResponseDto(store));
         }
         return storesResponse;
     }
-    public static Store storeDtoToStoreConverter(StoreRequestDto request){
-        Store store = new Store();
-        store.setStoreCode(request.getStoreCode());
-        store.setStoreName(request.getStoreName());
+
+    public static Store storeResponseDtoToStoreConverter(StoreResponseDto store) {
+        return Store.builder()
+                .id(store.getId())
+                .storeCode(store.getStoreCode())
+                .storeName(store.getStoreName())
+                .deliveryType(store.getDeliveryType())
+                .build();
+    }
+    public static Store storeRequestDtoToStoreConverter(StoreRequestDto request){
+        Store store = Store.builder()
+                .storeCode(request.getStoreCode())
+                .storeName(request.getStoreName())
+                .deliveryType(request.getDeliveryType())
+                .build();
         return store;
     }
 
@@ -96,7 +100,6 @@ public class Mapper {
         for(Store s:stores){
             allStoreCodes.add(s.getStoreCode());
         }
-        List<Integer>test = allStoreCodes;
         return allStoreCodes;
     }
 
@@ -108,7 +111,13 @@ public class Mapper {
                 .quantity(sale.getQuantity())
                 .build();
     }
-
+    public static List<BaseDto> salesListToSalesResponseDto(List<SalesPlan> sales){
+        List<BaseDto> responses = new ArrayList<>();
+        for(SalesPlan sale:sales){
+            responses.add(Mapper.saleToSalesResponseDtoConv(sale));
+        }
+        return responses;
+    }
     public static SalesReportDto reportViewToReportDto(SalesReportView view){
         return SalesReportDto.builder()
                 .eventName(view.getEventName())

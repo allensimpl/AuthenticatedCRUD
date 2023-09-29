@@ -32,7 +32,7 @@ public class StoreServiceImpl implements IStoreService {
 
     @Override
     public ResultDto addStore(StoreRequestDto storeDTO){
-        Store store = Mapper.storeDtoToStoreConverter(storeDTO);
+        Store store = Mapper.storeRequestDtoToStoreConverter(storeDTO);
         Store storeResponse = repository.save(store);
         StoreResponseDto storeResponseDto = Mapper.storeToStoreResponseDto(storeResponse);
         return new ResultDto(true,"POST Successfull",200,storeResponseDto);
@@ -42,7 +42,7 @@ public class StoreServiceImpl implements IStoreService {
     public ResultDto addStores(List<StoreRequestDto> storeDtos) {
         List<Store> stores = new ArrayList<>();
         for(StoreRequestDto requestDto:storeDtos){
-            stores.add(Mapper.storeDtoToStoreConverter(requestDto));
+            stores.add(Mapper.storeRequestDtoToStoreConverter(requestDto));
         }
         List<Store> storesResponse = repository.saveAll(stores);
         List<StoreResponseDto> responseDtoList =  Mapper.storeListToListResponse(storesResponse);
@@ -54,8 +54,9 @@ public class StoreServiceImpl implements IStoreService {
         Store store = repository.findById(id).orElse(null);
         store.setStoreName(storeDto.getStoreName());
         store.setStoreCode(storeDto.getStoreCode());
+        store.setDeliveryType(storeDto.getDeliveryType());
         repository.save(store);
-        return new ResultDto(true,"POST Successfull for store"+id,200,Mapper.storeToStoreResponseDto(store));
+        return new ResultDto(true,"Update Successfull for store"+id,200,Mapper.storeToStoreResponseDto(store));
     }
 
     @Override
