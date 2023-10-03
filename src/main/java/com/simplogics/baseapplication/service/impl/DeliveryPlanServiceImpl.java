@@ -4,12 +4,13 @@ import com.simplogics.baseapplication.dto.DeliveryPlanResponseDto;
 import com.simplogics.baseapplication.entity.*;
 import com.simplogics.baseapplication.exception.CustException;
 import com.simplogics.baseapplication.repository.*;
-import com.simplogics.baseapplication.service.IDeliverPlanService;
+import com.simplogics.baseapplication.service.IDeliveryPlanService;
 import com.simplogics.baseapplication.service.ISalesPlanService;
 import com.simplogics.baseapplication.utils.DateMappers;
 import com.simplogics.baseapplication.utils.Helper;
 import org.apache.poi.ss.util.DateParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DeliveryPlanServiceImpl implements IDeliverPlanService {
+@Service
+public class DeliveryPlanServiceImpl implements IDeliveryPlanService {
     @Autowired
     DeliveryPlanRepository dpRepository;
     @Autowired
@@ -32,16 +34,11 @@ public class DeliveryPlanServiceImpl implements IDeliverPlanService {
     ISalesPlanService salesPlanService;
     @Override
     public List<DeliveryPlan> getDeliveryPlans(){
-        List<DeliveryPlan> deliveryPlans = dpRepository.getDeliveryPlans();
-        return deliveryPlans;
+        return dpRepository.findAll();
     }
     @Override
     public List<DeliveryPlanResponseDto> generate(int eventCode, int storeCode) throws CustException {
         int esmID = esmRepository.findId(eventCode,storeCode);
-//        for(SalesPlanResponseDto r:allSalesPlan){
-//            allSalesPlan.add(Mapper.sales);
-//        }
-//        Mapper.sales
         List<SalesPlan> salesPlans = salesPlanRepository.getByEsmID(esmID);
         List<EventStoreMap> storeMaps = esmRepository.findAll();
         List<Store> stores = storeRepository.findAll();
@@ -59,9 +56,6 @@ public class DeliveryPlanServiceImpl implements IDeliverPlanService {
             Date startDate = event.getStartDate();
             Date endDate = event.getEndDate();
             Date date = salesPlan.getDate();
-//            LocalDate date = dateRaw.toInstant()
-//                    .atZone(ZoneId.systemDefault())
-//                    .toLocalDate();
             if(deliveryType==2){
                 date = DateMappers.asDate(DateMappers.asLocalDate(date).minusDays(1));
             }else if(deliveryType == 3){

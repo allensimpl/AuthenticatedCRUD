@@ -5,7 +5,7 @@ import com.simplogics.baseapplication.dto.BaseDto;
 import com.simplogics.baseapplication.dto.DeliveryPlanRequestDto;
 import com.simplogics.baseapplication.dto.DeliveryPlanResponseDto;
 import com.simplogics.baseapplication.exception.CustException;
-import com.simplogics.baseapplication.service.IDeliverPlanService;
+import com.simplogics.baseapplication.service.IDeliveryPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("${spring.data.rest.base-path}"+"/secure/salesPlan")
+@RequestMapping("${spring.data.rest.base-path}"+"/secure/deliveryPlan")
 public class DeliveryPlanController {
     @Autowired
-    IDeliverPlanService service;
+    IDeliveryPlanService service;
     @RequestMapping(method = RequestMethod.GET)
     public Object getDeliveryPlans(){
         return service.getDeliveryPlans();
@@ -31,6 +31,7 @@ public class DeliveryPlanController {
         int eventCode = requestDto.getEventCode();
         int storeCode = requestDto.getStoreCode();
         List<DeliveryPlanResponseDto> response = service.generate(eventCode,storeCode);
+        return response;
     }
 }
 
